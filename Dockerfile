@@ -1,4 +1,4 @@
-FROM debian:8
+FROM debian:stretch
 
 COPY . /app
 

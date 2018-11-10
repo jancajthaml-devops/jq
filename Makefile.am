@@ -2,21 +2,21 @@
 ### C source files to be built and distributed.
 
 LIBJQ_INCS = src/builtin.h src/bytecode.h src/compile.h                 \
-        src/exec_stack.h src/jq_parser.h src/jv_alloc.h src/jv_dtoa.h   \
-        src/jv_unicode.h src/jv_utf8_tables.h src/lexer.l src/libm.h    \
-        src/linker.h src/locfile.h src/opcode_list.h src/parser.y       \
-        src/util.h
+				src/exec_stack.h src/jq_parser.h src/jv_alloc.h src/jv_dtoa.h   \
+				src/jv_unicode.h src/jv_utf8_tables.h src/lexer.l src/libm.h    \
+				src/linker.h src/locfile.h src/opcode_list.h src/parser.y       \
+				src/util.h
 
 LIBJQ_SRC = src/builtin.c src/bytecode.c src/compile.c src/execute.c    \
-        src/jq_test.c src/jv.c src/jv_alloc.c src/jv_aux.c              \
-        src/jv_dtoa.c src/jv_file.c src/jv_parse.c src/jv_print.c       \
-        src/jv_unicode.c src/linker.c src/locfile.c src/util.c          \
-        ${LIBJQ_INCS}
+				src/jq_test.c src/jv.c src/jv_alloc.c src/jv_aux.c              \
+				src/jv_dtoa.c src/jv_file.c src/jv_parse.c src/jv_print.c       \
+				src/jv_unicode.c src/linker.c src/locfile.c src/util.c          \
+				${LIBJQ_INCS}
 
 ### C build options
 
 AM_CFLAGS = -Wextra -Wall -Wno-missing-field-initializers               \
-        -Wno-unused-parameter -Wno-unused-function
+				-Wno-unused-parameter -Wno-unused-function
 
 ACLOCAL_AMFLAGS = -I config/m4
 
@@ -156,28 +156,26 @@ install-binaries: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) install-exec
 
 DOC_FILES = docs/content docs/public docs/templates docs/site.yml       \
-        docs/Gemfile docs/Gemfile.lock docs/Rakefile docs/README.md     \
-        jq.1.prebuilt
+				docs/Gemfile docs/Gemfile.lock docs/Rakefile docs/README.md     \
+				jq.1.prebuilt
 
 EXTRA_DIST = $(DOC_FILES) $(man_MANS) $(TESTS) $(TEST_LOG_COMPILER)     \
-        jq.1.prebuilt jq.spec src/lexer.c src/lexer.h src/parser.c      \
-        src/parser.h src/version.h src/builtin.jq                       \
-        scripts/version tests/jq.test tests/modules/.jq                 \
-        tests/modules/a.jq tests/modules/b/b.jq tests/modules/c/c.jq    \
-        tests/modules/c/d.jq tests/modules/data.json                    \
-        tests/modules/lib/jq/e/e.jq tests/modules/lib/jq/f.jq           \
-        tests/modules/syntaxerror/syntaxerror.jq                        \
-        tests/modules/test_bind_order.jq                                \
-        tests/modules/test_bind_order0.jq                               \
-        tests/modules/test_bind_order1.jq                               \
-        tests/modules/test_bind_order2.jq tests/onig.supp               \
-        tests/onig.test tests/setup tests/torture/input0.json		\
-        tests/optional.test tests/optionaltest				\
+				jq.1.prebuilt jq.spec src/lexer.c src/lexer.h src/parser.c      \
+				src/parser.h src/version.h src/builtin.jq                       \
+				scripts/version tests/jq.test tests/modules/.jq                 \
+				tests/modules/a.jq tests/modules/b/b.jq tests/modules/c/c.jq    \
+				tests/modules/c/d.jq tests/modules/data.json                    \
+				tests/modules/lib/jq/e/e.jq tests/modules/lib/jq/f.jq           \
+				tests/modules/syntaxerror/syntaxerror.jq                        \
+				tests/modules/test_bind_order.jq                                \
+				tests/modules/test_bind_order0.jq                               \
+				tests/modules/test_bind_order1.jq                               \
+				tests/modules/test_bind_order2.jq tests/onig.supp               \
+				tests/onig.test tests/setup tests/torture/input0.json		\
+				tests/optional.test tests/optionaltest				\
 	tests/utf8-truncate.jq tests/utf8test				\
 	tests/base64.test tests/base64test 				\
 	tests/jq-f-test.sh tests/shtest
-
-
 
 # README.md is expected in Github projects, good stuff in it, so we'll
 # distribute it and install it with the package in the doc directory.
@@ -192,6 +190,9 @@ rpm: dist jq.spec
 	rpmbuild -tb --define "_topdir ${PWD}/rpm" --define "_prefix /usr" --define "myver $(VERSION)" --define "myrel ${RELEASE}" rpm/SOURCES/jq-$(VERSION).tar.gz
 	find rpm/RPMS/ -name "*.rpm" -exec mv {} ./ \;
 	rm -rf rpm
+
+distclean:
+	@echo "distclean not implemented"
 
 dist-clean-local:
 	rm -f ${BUILT_SOURCES}
@@ -210,4 +211,4 @@ clean-local-gcov:
 clean-local: clean-local-docs clean-local-gcov
 	rm -f src/version.h .remake-version-h
 
-.PHONY: clean-local-docs clean-local-gcov
+.PHONY: clean-local-docs clean-local-gcov distclean
